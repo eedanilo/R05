@@ -22,28 +22,37 @@ public class FloorCeilBinarySearchImpl implements FloorCeil {
 			return null;
 		}
 		int m = (l + r) / 2;
-		if (array[m] <= x && array[m + 1] > x) {
+
+		if (array[m] == x) {
 			return array[m];
 		}
-		if (array[m] > x) {
-			return bsFloor(array, x, l, m - 1);
-		}
 		if (array[m] < x) {
+			if (m + 1 > r || array[m + 1] > x) {
+				return array[m];
+			}
 			return bsFloor(array, x, m + 1, r);
 		}
-	}
+		return bsFloor(array, x, l, m - 1);
+		}
 
 	@Override
 	public Integer ceil(Integer[] array, Integer x) {
 		return bsCeil(array, x, 0, array.length - 1);
 	}
 
-	public bsCeil(Integer[] array, int x, int l, int r) {
+	public Integer bsCeil(Integer[] array, int x, int l, int r) {
+		if (l > r) {
+			return null;
+		}
 		int m = (l + r) / 2;
-		if (array[m] >= x && array[m - 1] < x) {
+		if (array[m] == x) {
 			return array[m];
 		}
-		if (array[m] > x && array[m - 1] > x)
-	}
-
+		if (array[m] > x) {
+			if (m == l || array[m - 1] < x) {
+				return array[m];
+			}
+			return bsCeil(array, x, l, m - 1);
+		}
+		return bsCeil(array, x, m + 1, r);
 }
